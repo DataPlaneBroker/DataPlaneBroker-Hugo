@@ -1,3 +1,55 @@
-baseURL = "http://example.org/"
+baseURL = "http://dataplanebroker.github.io"
 languageCode = "en-us"
-title = "My New Hugo Site"
+title = "DataPlane Broker"
+themesDir = "./themes"
+theme = "hugo-whisper-theme"
+
+pygmentsCodeFences = true
+pygmentsCodefencesGuessSyntax = true
+pygmentsUseClasses = true
+
+# Controls how many words are printed in the content summary on the docs homepage.
+# See https://gohugo.io/content-management/summaries/
+summaryLength = 30
+
+[[menu.main]]
+    name = "Home"
+    url = "/"
+    weight = 1
+
+[[menu.main]]
+    name = "What is DPB"
+    url = "/Docs/Intro/"
+    weight = 2
+
+[[menu.main]]
+    name = "Install"
+    url = "/Docs/Install/"
+    weight = 3
+
+[[menu.main]]
+    name = "News"
+    url = "/News/"
+    weight = 4
+
+[params]
+  google_analytics_id=""
+  homepage_button_link = 'http://github.com/DataPlaneBroker/DPB/releases'
+  homepage_button_text = 'Download'
+  homepage_intro = 'DataPlaneBroker is an open-source network management framework, compatible with the WIM functionalities of the NFV-MANO standards.'
+  homepage_image = '/images/header.jpg'
+
+  ## You can enable to add anchor links to header elements
+  # enable_anchor_link = true
+
+  [params.homepage_meta_tags]
+    meta_description = "DPB WIM service."
+    meta_og_title = "DPB"
+    meta_og_type = "website"
+    meta_og_url = "https://dataplanebroker.github.io"
+    meta_og_image = "images/logo.svg"
+    meta_og_description = "H"
+
+  [params.logo]
+      mobile = "/images/logo.svg"
+      standard  = "/images/logo.svg"

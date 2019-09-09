@@ -1,0 +1,7 @@
+[submodule "themes/hugo-whisper-theme"]
+	path = themes/hugo-whisper-theme
+	url = https://github.com/jugglerx/hugo-whisper-theme.git
+[submodule "public"]
+	path = public
+	url = https://github.com/DataPlaneBroker/DataPlaneBroker.github.io.git
+	branch = master

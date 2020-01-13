@@ -18,7 +18,7 @@ sudo apt-get install openjdk-11-jdk
 
 <pre>
 sudo apt-get install build-essential libjsonp-java junit4 libhttpcore-java \
-libcommons-httpclient-java libcommons-logging-java gawk par subversion
+libhttpclient-java libcommons-logging-java gawk par subversion
 </pre>
 
 <p>To run Ryu controllers, you also need:

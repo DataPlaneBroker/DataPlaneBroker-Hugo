@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>DataPlane Broker</title>
+    <link>http://dataplanebroker.github.io/</link>
+    <description>Recent content on DataPlane Broker</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 01 Sep 2019 15:14:39 +1000</lastBuildDate>
+    
+	<atom:link href="http://dataplanebroker.github.io/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>DataPlane Broker Introduction</title>
+      <link>http://dataplanebroker.github.io/docs/intro/</link>
+      <pubDate>Sun, 01 Sep 2019 19:27:37 +1000</pubDate>
+      
+      <guid>http://dataplanebroker.github.io/docs/intro/</guid>
+      <description>NFV-MANO data model and the WIM NFV management standardization is predominantly driven by the ETSI NFV SIG. The group develops a wide portfolio of standards and reference implementations, including the NFV-MANO architecture and data models.</description>
+    </item>
+    
+    <item>
+      <title>Installation</title>
+      <link>http://dataplanebroker.github.io/docs/install/</link>
+      <pubDate>Mon, 13 Jan 2020 11:49:39 +0000</pubDate>
+      
+      <guid>http://dataplanebroker.github.io/docs/install/</guid>
+      <description>Installing the DPB service The instructions assume a platform of Ubuntu 18.04. It can surely be adapted for other Linux platforms.
+Install Java 9 or later:
+ sudo apt-get install openjdk-11-jdk  Install other prerequisites:</description>
+    </item>
+    
+    <item>
+      <title>5th OSM Hackfest</title>
+      <link>http://dataplanebroker.github.io/news/5th-osm-hackfest/</link>
+      <pubDate>Mon, 09 Sep 2019 14:34:31 +0100</pubDate>
+      
+      <guid>http://dataplanebroker.github.io/news/5th-osm-hackfest/</guid>
+      <description>Our project is going to present DPB and its integration with OSM in the 5th OSM Hackfest in Patra Greece.
+ Demo material  The presentation will include a demo provides on cross-site CDN service orchestration.</description>
+    </item>
+    
+  </channel>
+</rss>

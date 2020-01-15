@@ -24,7 +24,7 @@ summaryLength = 30
 
 [[menu.main]]
     name = "Install"
-    url = "/Docs/Install/"
+    url = "/Docs/installation"
     weight = 3
 
 [[menu.main]]

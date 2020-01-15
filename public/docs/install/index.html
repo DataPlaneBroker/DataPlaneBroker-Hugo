@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Installation - DataPlane Broker</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <link rel="icon" href="http://dataplanebroker.github.io/favicon.png">
+
+  
+  
+  <link rel="stylesheet" href="/css/style.min.da30debb0ca4b8cf8de538df1a21cdad98bb5e25aa3dce3d5349fda8d7564cfd.css">
+  
+
+  
+
+</head>
+
+<body class='page page-default-single'>
+  <div id="main-menu-mobile" class="main-menu-mobile">
+  <ul>
+    
+    
+    <li class="menu-item-home">
+      <a href="/">
+        <span>Home</span>
+      </a>
+    </li>
+    
+    <li class="menu-item-what is dpb">
+      <a href="/docs/intro/">
+        <span>What is DPB</span>
+      </a>
+    </li>
+    
+    <li class="menu-item-install">
+      <a href="/docs/install/">
+        <span>Install</span>
+      </a>
+    </li>
+    
+    <li class="menu-item-news">
+      <a href="/news/">
+        <span>News</span>
+      </a>
+    </li>
+    
+  </ul>
+</div>
+  <div class="wrapper">
+    <div class='header'>
+  <div class="container">
+    <div class="logo">
+      <a href="http://dataplanebroker.github.io"><img alt="Logo" src="/images/logo.svg" /></a>
+    </div>
+    <div class="logo-mobile">
+      <a href="http://dataplanebroker.github.io"><img alt="Logo" src="/images/logo.svg" /></a>
+    </div>
+    <div id="main-menu" class="main-menu">
+  <ul>
+    
+    
+    <li class="menu-item-home">
+      <a href="/">
+        <span>Home</span>
+      </a>
+    </li>
+    
+    <li class="menu-item-what is dpb">
+      <a href="/docs/intro/">
+        <span>What is DPB</span>
+      </a>
+    </li>
+    
+    <li class="menu-item-install">
+      <a href="/docs/install/">
+        <span>Install</span>
+      </a>
+    </li>
+    
+    <li class="menu-item-news">
+      <a href="/news/">
+        <span>News</span>
+      </a>
+    </li>
+    
+  </ul>
+</div>
+    <button id="toggle-main-menu-mobile" class="hamburger hamburger--slider" type="button">
+  <span class="hamburger-box">
+    <span class="hamburger-inner"></span>
+  </span>
+</button>
+  </div>
+</div>
+
+
+    
+    
+    
+    
+    
+    
+
+    
+    <div class="container pt-2 pt-md-6 pb-3 pb-md-6">
+      <div class="row">
+        <div class="col-12 col-md-3 mb-3">
+          <div class="sidebar">
+            
+<div class="docs-menu">
+  <h4>Docs</h4>
+  <ul>
+    
+    <li class="">
+      <a href="http://dataplanebroker.github.io/docs/intro/">DataPlane Broker Introduction</a>
+    </li>
+    
+    <li class="active ">
+      <a href="http://dataplanebroker.github.io/docs/install/">Installation</a>
+    </li>
+    
+  </ul>
+</div>
+
+          </div>
+        </div>
+        <div class="col-12 col-md-9">
+          
+<h1 class="title">Installation</h1>
+<div class="content ">
+  <h2 id="installing-the-dpb-service">Installing the DPB service</h2>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<p>CPPFLAGS += -D_XOPEN_SOURCE=600
+CPPFLAGS += -D_GNU_SOURCE=1
+CPPFLAGS += -pedantic -Wall -W -Wno-unused-parameter
+CPPFLAGS += -Wno-missing-field-initializers</p>
+<p>CXXFLAGS += -O2 -g
+CXXFLAGS += -std=gnu++11
+EOF
+make
+sudo make install
+<!-- raw HTML omitted --></p>
+<!-- raw HTML omitted -->
+<p>CPPFLAGS += -D_XOPEN_SOURCE=600
+CPPFLAGS += -D_GNU_SOURCE=1
+CPPFLAGS += -pedantic -Wall -W -Wno-unused-parameter
+CPPFLAGS += -Wno-missing-field-initializers</p>
+<p>CXXFLAGS += -O2 -g
+CXXFLAGS += -std=gnu++11
+EOF
+make
+sudo make install
+<!-- raw HTML omitted --></p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<p>aggr.name=aggr
+aggr.type=persistent-aggregator
+aggr.db.service=jdbc:sqlite:/home/initiate/.local/var/dataplane-broker/aggr.sqlite3</p>
+<p>## The london switch stores its service status in an Sqlite3 database,
+## and operates the fabric provided by the london-fabric agent.
+london-switch.name=london
+london-switch.type=persistent-switch
+london-switch.db.service=jdbc:sqlite:/home/initiate/.local/var/dataplane-broker/london-switch.sqlite3
+london-switch.fabric.agent=london-fabric</p>
+<p>## The london fabric operates a single VFC in a Corsa, multiplexing
+## services across it.  It is told how to operate the Corsa's REST
+## management interface, what OpenFlow configuration to apply to the
+## VFC (the controller address, and netns, if it needs to create it),
+## and how to configure the VFC's controller (through a custom REST
+## API).
+london-fabric.name=london-fabric
+london-fabric.type=corsa-dp2x00-sharedbr
+london-fabric.description.prefix=dpb:vc:london:
+london-fabric.subtype=openflow
+london-fabric.rest.inherit=#mycorsa.rest
+london-fabric.ctrl.inherit=#mycorsa.ctrl</p>
+<p>## Other switches and fabrics follow a similar pattern.
+athens-switch.name=athens
+athens-switch.type=persistent-switch
+athens-switch.db.service=jdbc:sqlite:/home/initiate/.local/var/dataplane-broker/athens-switch.sqlite3
+athens-switch.fabric.agent=athens-fabric</p>
+<p>athens-fabric.name=athens-fabric
+athens-fabric.type=corsa-dp2x00-sharedbr
+athens-fabric.description.prefix=dpb:vc:athens:
+athens-fabric.subtype=openflow
+athens-fabric.rest.inherit=#mycorsa.rest
+athens-fabric.ctrl.inherit=#mycorsa.ctrl</p>
+<p>paris-switch.name=paris
+paris-switch.type=persistent-switch
+paris-switch.db.service=jdbc:sqlite:/home/initiate/.local/var/dataplane-broker/paris-switch.sqlite3
+paris-switch.fabric.agent=paris-fabric</p>
+<p>paris-fabric.name=paris-fabric
+paris-fabric.type=corsa-dp2x00-sharedbr
+paris-fabric.description.prefix=dpb:vc:paris:
+paris-fabric.subtype=openflow
+paris-fabric.rest.inherit=#mycorsa.rest
+paris-fabric.ctrl.inherit=#mycorsa.ctrl</p>
+<p>## These credentials are used to operate a Corsa, and can
+## be shared by multiple simulated switch abstractions.
+mycorsa.rest.location=https://10.11.12.13/
+mycorsa.rest.cert.file=mycorsa-certificate.pem
+mycorsa.rest.authz.file=mycorsa-authz
+mycorsa.ctrl.host=172.31.31.1
+mycorsa.ctrl.port=6556
+mycorsa.ctrl.netns=dpb-netns
+mycorsa.ctrl.rest.location=http://localhost:8081/slicer/
+<!-- raw HTML omitted --></p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<h2 id="install-nbi-information">Install NBI information</h2>
+<h2 id="install-wim-driver-in-ro">Install WIM Driver in RO</h2>
+<h2 id="dpb-ro-repo">DPB RO repo</h2>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">git clone https://github.com/DataPlaneBroker/RO.git
+</code></pre></div>
+</div>
+</div>
+
+        </div>
+      </div>
+    </div>
+    
+  </div>
+
+  <div class="sub-footer">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <div class="sub-footer-inner">
+          <ul>
+            <li class="zerostatic"><a href="https://www.zerostatic.io">www.zerostatic.io</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/scripts.min.1237ff71925bb8625c97a9af8db4c54525258bedfd7c47493daaff723bea755e.js"></script>
+  
+
+  
+  
+  
+    
+  
+
+
+</body>
+
+</html>

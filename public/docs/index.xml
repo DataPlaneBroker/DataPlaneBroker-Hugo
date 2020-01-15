@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Docs on DataPlane Broker</title>
@@ -6,7 +6,7 @@
     <description>Recent content in Docs on DataPlane Broker</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 01 Sep 2019 19:27:37 +1000</lastBuildDate>
+    <lastBuildDate>Mon, 13 Jan 2020 11:49:39 +0000</lastBuildDate>
     
 	<atom:link href="http://dataplanebroker.github.io/docs/index.xml" rel="self" type="application/rss+xml" />
     
@@ -26,9 +26,8 @@
       <pubDate>Mon, 13 Jan 2020 11:49:39 +0000</pubDate>
       
       <guid>http://dataplanebroker.github.io/docs/install/</guid>
-      <description>Installing the DPB service The instructions assume a platform of Ubuntu 18.04. It can surely be adapted for other Linux platforms.
-Install Java 9 or later:
- sudo apt-get install openjdk-11-jdk  Install other prerequisites:</description>
+      <description>Installing the DPB service CPPFLAGS += -D_XOPEN_SOURCE=600 CPPFLAGS += -D_GNU_SOURCE=1 CPPFLAGS += -pedantic -Wall -W -Wno-unused-parameter CPPFLAGS += -Wno-missing-field-initializers
+CXXFLAGS += -O2 -g CXXFLAGS += -std=gnu++11 EOF make sudo make install CPPFLAGS += -D_XOPEN_SOURCE=600 CPPFLAGS += -D_GNU_SOURCE=1 CPPFLAGS += -pedantic -Wall -W -Wno-unused-parameter CPPFLAGS += -Wno-missing-field-initializers</description>
     </item>
     
   </channel>

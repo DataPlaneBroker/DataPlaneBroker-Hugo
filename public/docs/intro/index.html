@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>DataPlane Broker Introduction - DataPlane Broker</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <link rel="icon" href="http://dataplanebroker.github.io/favicon.png">
+
+  
+  
+  <link rel="stylesheet" href="/css/style.min.da30debb0ca4b8cf8de538df1a21cdad98bb5e25aa3dce3d5349fda8d7564cfd.css">
+  
+
+  
+
+</head>
+
+<body class='page page-default-single'>
+  <div id="main-menu-mobile" class="main-menu-mobile">
+  <ul>
+    
+    
+    <li class="menu-item-home">
+      <a href="/">
+        <span>Home</span>
+      </a>
+    </li>
+    
+    <li class="menu-item-what is dpb">
+      <a href="/docs/intro/">
+        <span>What is DPB</span>
+      </a>
+    </li>
+    
+    <li class="menu-item-install">
+      <a href="/docs/install/">
+        <span>Install</span>
+      </a>
+    </li>
+    
+    <li class="menu-item-news">
+      <a href="/news/">
+        <span>News</span>
+      </a>
+    </li>
+    
+  </ul>
+</div>
+  <div class="wrapper">
+    <div class='header'>
+  <div class="container">
+    <div class="logo">
+      <a href="http://dataplanebroker.github.io"><img alt="Logo" src="/images/logo.svg" /></a>
+    </div>
+    <div class="logo-mobile">
+      <a href="http://dataplanebroker.github.io"><img alt="Logo" src="/images/logo.svg" /></a>
+    </div>
+    <div id="main-menu" class="main-menu">
+  <ul>
+    
+    
+    <li class="menu-item-home">
+      <a href="/">
+        <span>Home</span>
+      </a>
+    </li>
+    
+    <li class="menu-item-what is dpb">
+      <a href="/docs/intro/">
+        <span>What is DPB</span>
+      </a>
+    </li>
+    
+    <li class="menu-item-install">
+      <a href="/docs/install/">
+        <span>Install</span>
+      </a>
+    </li>
+    
+    <li class="menu-item-news">
+      <a href="/news/">
+        <span>News</span>
+      </a>
+    </li>
+    
+  </ul>
+</div>
+    <button id="toggle-main-menu-mobile" class="hamburger hamburger--slider" type="button">
+  <span class="hamburger-box">
+    <span class="hamburger-inner"></span>
+  </span>
+</button>
+  </div>
+</div>
+
+
+    
+    
+    
+    
+    
+    
+
+    
+    <div class="container pt-2 pt-md-6 pb-3 pb-md-6">
+      <div class="row">
+        <div class="col-12 col-md-3 mb-3">
+          <div class="sidebar">
+            
+<div class="docs-menu">
+  <h4>Docs</h4>
+  <ul>
+    
+    <li class="active ">
+      <a href="http://dataplanebroker.github.io/docs/intro/">DataPlane Broker Introduction</a>
+    </li>
+    
+    <li class="">
+      <a href="http://dataplanebroker.github.io/docs/install/">Installation</a>
+    </li>
+    
+  </ul>
+</div>
+
+          </div>
+        </div>
+        <div class="col-12 col-md-9">
+          
+<h1 class="title">DataPlane Broker Introduction</h1>
+<div class="content ">
+  <h2 id="nfv-mano-data-model-and-the-wim">NFV-MANO data model and the WIM</h2>
+<p>NFV management standardization is predominantly driven by the <a href="https://www.etsi.org/technologies/nfv">ETSI NFV SIG</a>. The group develops a wide portfolio of standards and reference implementations, including the NFV-MANO architecture and data models. The proposed architecture consists of three management layers:</p>
+<ul>
+<li>The Virtual Infrastructure Manager (VIM) controlling physical infrastructure resources;</li>
+<li>The NFV manager (NFVM) controlling and monitoring running NFV instances;</li>
+<li>The NFV Orchestrator (NFVO) responsible for fulfilling network service requests from external users.</li>
+</ul>
+<p>Although NFV-MANO was initially designed to support NFV management within a single datacenter, the development of new technological paradigms, like Mobile Edge Cloud and cloud-RAN, have introduced a requirement in standardization efforts to develop support for cross-site service deployment. Developing relevant support is hindered by the lack of support for management of network  resources and  forwarding in the existing data model. The existing NFV-MANO specification offset these control and management capabilities to a WAN Infrastructure Manager (WIM)~\cite{sgi-etsi-wim} entity and declare out-of-scope the specification of the interface between the NVFO and the WIM. A WIM is a special type of a VIM which offers exclusively control of network resources and connectivity between NFV datacenters. In effect, it is a shim layer mediating MANO virtual link requests to network controllers, in an effort to provide point-to-point and multi-point connectivity between NFVs of a single network service across datacenters.</p>
+<h2 id="dataplane-broker">DataPlane Broker</h2>
+<h2 id="dpb-model">DPB Model</h2>
+<p>In order to support the technology and topology diversity, DPB develops a hierarchical model to abstract network connectivity support between the different network management layers. The DPB NBI follows a <em>one big switch</em> abstraction; the underlying topology remains hidden from the orchestrator, which can request connectivity for any arbitrary group of network terminals, which are points of access to VIMs&rsquo; internal networks. Through the DPB, the orchestrator can manage <strong>a (logical) network</strong>, a dynamic set of <strong>network services</strong>, i.e. layer-2 broadcast domains, between network terminals and with specific bandwidth guarantees. A network service is modeled as a set of <em>circuit-id, ingress-bandwidth, egress-bandwidth</em> tuples. A circuit is an endpoint of a service, identified by the terminal it resides on and a numeric <em>label</em> (e.g. a VLAN id) distinguishing it from others services occupying the same terminal.  The following picture depicts a logical network with six terminals, and one service connecting three circuits (site1-opst:435, site2-ofx:961, site3-ofx:2010) and another service connecting two (site1-opst:91, site1-ofx:961).</p>
+<!-- raw HTML omitted -->
+<p>The DPB defines two logical network types. A <strong>logical switch network</strong> is a network of the simplest type, modeling a single switching fabric, e.g. an OpenFlow datapath. An <strong>aggregator</strong> is a complex network abstracting the control and connectivity of different inferior networks, which can be either switch networks or smaller aggregator networks. Physical connections between a subset of inferior networks&rsquo; terminals are modeled as <em>trunks</em>, each comprised of bandwidth capacity and available circuit labels. Management and control of each trunk is the responsibility of exactly one aggregator. An aggregator's own terminals are mapped to inferiors&rsquo; terminals that are not internally connected by its trunks.</p>
+
+</div>
+</div>
+
+        </div>
+      </div>
+    </div>
+    
+  </div>
+
+  <div class="sub-footer">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <div class="sub-footer-inner">
+          <ul>
+            <li class="zerostatic"><a href="https://www.zerostatic.io">www.zerostatic.io</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/scripts.min.1237ff71925bb8625c97a9af8db4c54525258bedfd7c47493daaff723bea755e.js"></script>
+  
+
+  
+  
+  
+    
+  
+
+
+</body>
+
+</html>

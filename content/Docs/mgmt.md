@@ -3,6 +3,7 @@ title: "Management"
 date: 2020-01-15T14:49:22Z
 draft: false
 weight: 4
+summary: "Management operations include describing the network topology to the broker.  The SSH client is used to configure network topology."
 ---
 
 

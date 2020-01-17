@@ -3,9 +3,10 @@ title: "Configuration"
 date: 2020-01-15T14:38:33Z
 draft: false
 weight: 3
+summary: "How to configure and invoke DPB components"
 ---
 
-
+Here are details of how to configure and invoke DPB components.
 
 # Corsa controller configuration
 
@@ -35,6 +36,15 @@ The controller presents two interfaces (based on the arguments above):
 Details of these interfaces go in the `ctrl` section of a fabric agent later.
 
 Tunnel attachments are set up through the Corsa's REST-based management interface.
+
+If you're using a Docker image, you can run it as follows, adjusting the port exposure as required:
+
+```
+docker run -d --restart unless-stopped --name dpb-ctrl-corsa \
+  -p 8081:8081 -p 6556:6556 \
+  simpsonst/dpb-ctrl-corsa
+```
+
 
 
 # Generic OpenFlow controller configuration
@@ -142,15 +152,24 @@ In the `corsa-dp2x00-sharedbr` implementation, each active service of *N* end po
 
 There is no topology information in the configuration file, as that is set up through other [dpb-client commands](http://scc-forge.lancaster.ac.uk/javadoc/dataplanebroker-test/uk/ac/london/networks/apps/Commander-method-main/1java$lang$String).  The configuration file only contains management connectivity information.
 
+
 ## SSH authorization
 
 The server is managed through SSH.  The script `dpb-ssh-agent` is invoked on the server side, with minimal argumentation, then the client and server engage in a bidirectional exchange of JSON messages.  To allow a user access, take their SSH public key, and append it as a single line to `~/.ssh/authorized_keys` on the server account.  This should be augmented with settings that restrict what the client can invoke:
 
 ```
-command="/usr/local/bin/dpb-ssh-agent +N -s /tmp/dataplane-broker.sock -m london -m athens -m paris -m aggr",no-port-forwarding,no-agent-forwarding,no-X11-forwarding,no-pty ecdsa-sha2-nistp256 AAAAE2VjZH*…*f85P+s= foo@example
+command="/usr/local/bin/dpb-ssh-agent +N -s /tmp/dataplane-broker.sock -m london -m athens -m paris -m aggr",no-port-forwarding,no-agent-forwarding,no-X11-forwarding,no-pty ecdsa-sha2-nistp256 AAAAE2VjZH…f85P+s= foo@example
 ```
 
-<p>The example above permits the caller to manage and control all four network abstractions (`london`, `athens`, `paris` and `aggr`).  Management operations include the addition and removal of terminals, and the additional, removal and configuration of trunks (for aggregators only).  Control operations include the creation, definition, activation, deactivation and release of services.  Use `-c` instead of `-m` to permit only control of a particular network.
+(You might not need `+N` if you've got a newer `nc` command.)
+
+The example above permits the caller to manage and control all four network abstractions (`london`, `athens`, `paris` and `aggr`).  Management operations include the addition and removal of terminals, and the additional, removal and configuration of trunks (for aggregators only).  Control operations include the creation, definition, activation, deactivation and release of services.  Use `-c` instead of `-m` to permit only control of a particular network.
+
+If you're running the server in a Docker image, invoke the agent within the running container:
+
+```
+command="docker exec -i dpb-server /usr/local/bin/dpb-ssh-agent -o \"$SSH_ORIGINAL_COMMAND\" -N -s /tmp/dataplane-broker.sock -m root",no-port-forwarding,no-agent-forwarding,no-X11-forwarding,no-pty ecdsa-sha2-nistp256 AAAAE2VjZH…f85P+s= foo@example
+```
 
 
 
@@ -170,6 +189,17 @@ To run as a cronjob, remember to escape the `%` character in the command, as thi
 
 ```
 */10 * * * * usmux -B /tmp/dataplane-broker.sock -- dpb-server -s '\%s' -L/usr/share/java -L/usr/local/share/java -lsqlite-jdbc -lhttpcore -lhttpclient -lcommons-logging > /dev/null 2>&amp;1
+```
+
+
+If you're using the Docker image, run with:
+
+```
+docker run -d --restart unless-stopped --name dpb-server \
+  -p 4753:4753 \
+  -v ~/.config/dataplane-broker:/root/.config/dataplane-broker:ro \
+  -v ~/.local/var/dataplane-broker:/root/.local/var/dataplane-broker:rw \
+  simpsonst/dpb-server
 ```
 
 
@@ -222,4 +252,17 @@ london.name=london
 aggr.type=ssh-switch
 aggr.ssh.inherit=\#beta
 aggr.name=aggr
+```
+
+Run the client as `dpb-client`.
+
+If you've got the Docker image, you should create an alias:
+
+```
+function dpb-client () {
+    docker run --rm --init \
+      -v ~/.ssh:/root/.ssh:ro \
+      -v ~/.config/dataplane-broker:/root/.config/dataplane-broker:ro \
+      simpsonst/dpb-client "$@" 
+}
 ```

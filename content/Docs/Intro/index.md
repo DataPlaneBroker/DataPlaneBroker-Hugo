@@ -2,6 +2,7 @@
 title: 'DataPlane Broker Introduction'
 date: 2019-09-01T19:27:37+10:00
 weight: 1
+summary: "The role of the broker in NFV"
 ---
 ## NFV-MANO data model and the WIM
 

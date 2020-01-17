@@ -3,6 +3,7 @@ title: "Control"
 date: 2020-01-15T14:50:43Z
 draft: false
 weight: 5
+summary: "Control operations include setting up and tearing down services.  These can be invoked by SSH or REST."
 ---
 
 The broker can be operated by SSH or REST.

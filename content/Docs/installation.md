@@ -14,7 +14,7 @@ There are three main components that can be installed together, or separately:
 
 * Ryu controllers for Corsa and Generic OpenFlow fabrics
 
-They are available as Docker images, and can also be built from source.
+They are available as Docker images, and can also be built from source.  The instructions to build from source are annotated with **[Server]**, **[Client]**, **[Controllers]** to indicate which commands to execute depending in which components you're trying to install.
 
 ## Docker images
 
@@ -30,24 +30,33 @@ docker pull simpsonst/dpb-client
 
 A platform of Ubuntu 18.04 is assumed.  The instructions can surely be adapted for other Linux platforms.
 
-For installing just controllers, you only need:
+**[Server]** Install Java 9 or later, and other prerequisites:
+
+```
+sudo apt-get install -y netcat-openbsd \
+	openjdk-11-jdk-headless openjdk-11-jre-headless \
+	libjsonp-java libhttpcore-java \
+	libhttpclient-java libcommons-logging-java \
+	build-essential gawk par subversion git curl zip m4
+```
+
+**[Client]** Install Java 9 or later, and other prerequisites:
+
+```
+sudo apt-get install -y netcat-openbsd \
+	openjdk-11-jdk-headless openjdk-11-jre-headless \
+	libjsonp-java build-essential gawk par subversion \
+	git curl zip m4
+```
+
+**[Controllers]** Install Ryu, and other build tools:
 
 ```
 sudo apt-get install -y python-ryu build-essential gawk \
 	par subversion git
 ```
 
-For the server or client, install Java 9 or later, and other prerequisites:
-
-```
-sudo apt-get install -y netcat-openbsd \
-	openjdk-11-jdk-headless openjdk-11-jre-headless \
-	libjsonp-java junit4 libhttpcore-java \
-	libhttpclient-java libcommons-logging-java \
-	build-essential gawk par subversion git curl zip m4
-```
-
-**Ubuntu 16.04 doesn't have `libjsonp-java`.**  This procedure should install it under `/usr/local/share/java/`:
+**[Client]** **[Server]** **Ubuntu ***16.04*** doesn't have `libjsonp-java`.**  This procedure should install it under `/usr/local/share/java/`:
 
 ```
 cd /tmp
@@ -58,7 +67,9 @@ sudo mv javax.json-1.0.jar /usr/local/share/java
 sudo ln -s javax.json-1.0.jar /usr/local/share/java/javax.json.jar
 ```
 
-For the server alone, a database connector is also required:
+## Pre-built prerequisites
+
+**[Server]** A database connector is also required:
 
 ```
 sudo mkdir -p /usr/local/share/java
@@ -67,13 +78,13 @@ sudo curl 'https://bitbucket.org/xerial/sqlite-jdbc/downloads/sqlite-jdbc-3.23.1
 sudo ln -s sqlite-jdbc-3.23.1.jar /usr/local/share/java/sqlite-jdbc.jar
 ```
 
-## Built prerequisites
+## User-built prerequisites
 
 The DPB and its remaining prerequisites are best checked out from their repositories.  We'll assume you'll keep working copies in a directory such as `~/works/`.
 
 ### Installing Binodeps
 
-For all components, install [Binodeps](http://www.lancaster.ac.uk/~simpsons/software/pkg-binodeps), which provides enhanced rules for building C and C++ programs using GNU Make, as well as installation rules for scripts and static data:
+**[Controllers]** **[Client]** **[Server]** Install [Binodeps](http://www.lancaster.ac.uk/~simpsons/software/pkg-binodeps), which provides enhanced rules for building C and C++ programs using GNU Make, as well as installation rules for scripts and static data:
 
 ```
 mkdir -p ~/works
@@ -85,7 +96,7 @@ make && sudo make install
 
 ### Installing Jardeps
 
-For server or client, install [Jardeps](http://www.lancaster.ac.uk/~simpsons/software/pkg-jardeps), which provides rules for compiling Java with GNU Make:
+**[Client]** **[Server]** Install [Jardeps](http://www.lancaster.ac.uk/~simpsons/software/pkg-jardeps), which provides rules for compiling Java with GNU Make:
 
 ```
 cd ~/works
@@ -96,7 +107,7 @@ make && sudo make install
 
 ### Installing Java REST library
 
-For the server only, install Java REST library (noting correct path for `javax.json.jar` if you installed it manually):
+**[Server]** Install Java REST library (noting correct path for `javax.json.jar` if you installed it manually):
 
 ```
 cd ~/works
@@ -111,12 +122,12 @@ EOF
 make && sudo make install
 ```
 
-
 [Javadoc](http://scc-forge.lancaster.ac.uk/javadoc/lurest-test/overview-summary) exists for this project.
+
 
 ### Installing DDSLib
 
-For the server only, install [DDSLib](http://www.lancaster.ac.uk/~simpsons/software/pkg-smilib), a C library for managing various data structures like linked lists, binary heaps, etc.:
+**[Server]** Install [DDSLib](http://www.lancaster.ac.uk/~simpsons/software/pkg-smilib), a C library for managing various data structures like linked lists, binary heaps, etc.:
 
 ```
 cd ~/works
@@ -140,7 +151,7 @@ make && sudo make install
 
 ### Installing Reactor
 
-For the server only, install [Reactor](http://www.lancaster.ac.uk/~simpsons/software/pkg-react), a library for event-driven programming in C:
+**[Server]** Install [Reactor](http://www.lancaster.ac.uk/~simpsons/software/pkg-react), a library for event-driven programming in C:
 
 ```
 cd ~/works
@@ -165,7 +176,7 @@ make && sudo make install
 
 ### Installing Usmux
 
-For the server only, install [Usmux](http://www.lancaster.ac.uk/~simpsons/software/pkg-usmux), which allows a Java process to receive connections over a Unix-domain socket, and fork into the background.  The DPB server process makes itself available over such a socket.
+**[Server]** Install [Usmux](http://www.lancaster.ac.uk/~simpsons/software/pkg-usmux), which allows a Java process to receive connections over a Unix-domain socket, and fork into the background.  The DPB server process makes itself available over such a socket.
 
 ```
 cd ~/works
@@ -185,34 +196,7 @@ make && sudo make install
 
 ## Installing DPB
 
-To install just the controllers:
-
-```
-cd ~/works
-git clone git@github.com:DataPlaneBroker/DPB.git
-cd DPB
-sudo make install-ctrl
-```
-
-To install the client and controllers, but not the server (noting correct path for `javax.json.jar` if you installed it manually): 
-
-```
-cd ~/works
-git clone git@github.com:DataPlaneBroker/DPB.git
-cd DPB
-cat > dataplanebroker-env.mk <<EOF
-CLASSPATH += /usr/share/java/junit4.jar
-CLASSPATH += /usr/share/java/javax.json.jar
-CLASSPATH += /usr/share/java/httpcore.jar
-CLASSPATH += /usr/share/java/httpclient.jar
-CLASSPATH += /usr/share/java/commons-logging.jar
-CLASSPATH += /usr/local/share/java/jardeps-lib.jar
-CLASSPATH += /usr/local/share/java/lurest-client-api.jar
-EOF
-make client && sudo make install-client
-```
-
-To install everything, including the server (noting correct path for `javax.json.jar` if you installed it manually):
+**[Server]** These commands also install the controllers and the client as a side-effect.  Note the correct path for `javax.json.jar` if you installed it manually.
 
 ```
 cd ~/works
@@ -234,6 +218,33 @@ PROCPATH += /usr/local/share/java/lurest-service.jar
 PROCPATH += /usr/local/share/java/lurest-service-proc.jar
 EOF
 make && sudo make install
+```
+
+**[Client]** These commands also install the controllers as a side-effect.  Note the correct path for `javax.json.jar` if you installed it manually.
+
+```
+cd ~/works
+git clone git@github.com:DataPlaneBroker/DPB.git
+cd DPB
+cat > dataplanebroker-env.mk <<EOF
+CLASSPATH += /usr/share/java/junit4.jar
+CLASSPATH += /usr/share/java/javax.json.jar
+CLASSPATH += /usr/share/java/httpcore.jar
+CLASSPATH += /usr/share/java/httpclient.jar
+CLASSPATH += /usr/share/java/commons-logging.jar
+CLASSPATH += /usr/local/share/java/jardeps-lib.jar
+CLASSPATH += /usr/local/share/java/lurest-client-api.jar
+EOF
+make client && sudo make install-client
+```
+
+**[Controllers]**
+
+```
+cd ~/works
+git clone git@github.com:DataPlaneBroker/DPB.git
+cd DPB
+sudo make install-ctrl
 ```
 
 

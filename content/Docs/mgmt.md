@@ -7,9 +7,9 @@ summary: "Management operations include describing the network topology to the b
 ---
 
 
-Details of network topology are set up dynamically through the management client `dpb-client`.
+Details of network topology are set up dynamically through the management client `dpb-client`.  See the [command-line documentation](http://scc-forge.lancaster.ac.uk/javadoc/dataplanebroker-test/uk/ac/lancs/networks/apps/Commander-method-main/1java$lang$String) for further details.
 
-# Example topology configuration
+## Example topology configuration
 
 In our example, a single Corsa is used to host three bridges (a.k.a. VFCs).  Ports 24 and 25 are assumed to connect to (say) the dataplanes of two OpenStack installations.  Ports 13 and 29 are looped together at 10G to simulate a long-distance link.  All these ports must use tunnel mode `ctag`.  We wish to operate the bridges as a chain connecting the two OpenStack installations together.
 
@@ -55,3 +55,41 @@ Each `-n` selects a logical switch to contact for subsequent commands, so first 
 The `provide` commands increase the bandwidth capacity on each trunk by 5000Mbps each.  Each trunk is set to use at most half of the physical capacity of the loop they share.
 
 The `open` commands allow ranges of labels (which map to VLAN tags) to be used on each trunk.  By choosing disjoint ranges, they can share the same physical loop.
+
+## Terminal capacity
+
+You can apply limits to the bandwidth available at a switch terminal.  Normally, you would only do this for external terminals of a network, not for the internal terminals (those that define the ends of trunks).  Ingress and egress limits are distinct, but can be set together.  To limit terminal `openstack` on switch `london` to 1000Mbps in either direction:
+
+```
+dpb-client -n london quota openstack 1000
+```
+
+New services that take the total bandwidth beyond the limit will fail.
+
+Setting the quota below the current usage level is not an error.  It simply forbids all new services on the terminal until sufficient bandwidth has been released from existing services.
+
+You can remove both limits:
+
+```
+dpb-client -n london quota openstack off
+```
+
+You can set ingress and egress limits separately (1000Mbps for ingress, 500Mbps for egress):
+
+```
+dpb-client -n london quota openstack 1000:500
+```
+
+If you want to set one, and leave the other unchanged:
+
+```
+dpb-client -n london quota openstack 1000:-
+```
+
+Or to switch ingress off:
+
+```
+dpb-client -n london quota openstack off:-
+```
+
+And so on.

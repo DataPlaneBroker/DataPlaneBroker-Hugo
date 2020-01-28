@@ -84,7 +84,7 @@ The DPB and its remaining prerequisites are best checked out from their reposito
 
 ### Installing Binodeps
 
-**[Controllers]** **[Client]** **[Server]** Install [Binodeps](http://www.lancaster.ac.uk/~simpsons/software/pkg-binodeps), which provides enhanced rules for building C and C++ programs using GNU Make, as well as installation rules for scripts and static data:
+**[Controllers]** **[Client]** **[Server]** Install [Binodeps](http://scc-forge.lancaster.ac.uk/open/simpsons/software/pkg-binodeps), which provides enhanced rules for building C and C++ programs using GNU Make, as well as installation rules for scripts and static data:
 
 ```
 mkdir -p ~/works
@@ -96,7 +96,7 @@ make && sudo make install
 
 ### Installing Jardeps
 
-**[Client]** **[Server]** Install [Jardeps](http://www.lancaster.ac.uk/~simpsons/software/pkg-jardeps), which provides rules for compiling Java with GNU Make:
+**[Client]** **[Server]** Install [Jardeps](http://scc-forge.lancaster.ac.uk/open/simpsons/software/pkg-jardeps), which provides rules for compiling Java with GNU Make:
 
 ```
 cd ~/works
@@ -127,7 +127,7 @@ make && sudo make install
 
 ### Installing DDSLib
 
-**[Server]** Install [DDSLib](http://www.lancaster.ac.uk/~simpsons/software/pkg-smilib), a C library for managing various data structures like linked lists, binary heaps, etc.:
+**[Server]** Install [DDSLib](http://scc-forge.lancaster.ac.uk/open/simpsons/software/pkg-smilib), a C library for managing various data structures like linked lists, binary heaps, etc.:
 
 ```
 cd ~/works
@@ -151,7 +151,7 @@ make && sudo make install
 
 ### Installing Reactor
 
-**[Server]** Install [Reactor](http://www.lancaster.ac.uk/~simpsons/software/pkg-react), a library for event-driven programming in C:
+**[Server]** Install [Reactor](http://scc-forge.lancaster.ac.uk/open/simpsons/software/pkg-react), a library for event-driven programming in C:
 
 ```
 cd ~/works
@@ -176,7 +176,7 @@ make && sudo make install
 
 ### Installing Usmux
 
-**[Server]** Install [Usmux](http://www.lancaster.ac.uk/~simpsons/software/pkg-usmux), which allows a Java process to receive connections over a Unix-domain socket, and fork into the background.  The DPB server process makes itself available over such a socket.
+**[Server]** Install [Usmux](http://scc-forge.lancaster.ac.uk/open/simpsons/software/pkg-usmux), which allows a Java process to receive connections over a Unix-domain socket, and fork into the background.  The DPB server process makes itself available over such a socket.
 
 ```
 cd ~/works

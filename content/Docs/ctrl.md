@@ -10,7 +10,7 @@ The broker can be operated by SSH or REST.
 
 # SSH interface
 
-The command `dpb-client` invokes the broker over SSH.  `-n nw` selects the network `nw` for subsequent arguments to apply to.  `-s 4` selects service 4 for subsequent arguments.
+The command `dpb-client` invokes the broker over SSH.  `-n nw` selects the network `nw` for subsequent arguments to apply to.  `-s 4` selects service 4 for subsequent arguments.  See the [command-line documentation](http://scc-forge.lancaster.ac.uk/javadoc/dataplanebroker-test/uk/ac/lancs/networks/apps/Commander-method-main/1java$lang$String) for more details.
 
 ## Operations on the network
 

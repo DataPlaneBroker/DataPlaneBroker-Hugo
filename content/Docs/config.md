@@ -38,7 +38,7 @@ If you're using a Docker image, you can run it as follows, adjusting the port ex
 
 ```
 docker run -d --restart unless-stopped --name dpb-ctrl-corsa \
-  -p localhost:8081:8081 -p 172.31.31.1:6556:6556 \
+  -p 127.0.0.1:8081:8081 -p 172.31.31.1:6556:6556 \
   simpsonst/dpb-ctrl-corsa
 ```
 
@@ -251,8 +251,8 @@ Store client-side configuration in `~/.config/dataplanebroker/client.properties`
 ## Define how to SSH to the server host and account.
 beta.host=dpb-server.home
 beta.user=me
-## (Psst! Not sure if I've implemented ${} yet!)
 beta.key-file=${user.home}/.ssh/london-switch_ecdsa
+beta.config-file=/dev/null
 
 ## Indicate the configuration prefixes of agents to instantiate.
 agents=london, paris, athens, aggr
@@ -295,3 +295,5 @@ function dpb-client () {
       simpsonst/dpb-client "$@" 
 }
 ```
+
+You will likely need the `config-file` of the SSH options if running through Docker, as SSH will complain about ownership of the default configuration file.  (It's running as `root`, but the file is owned by `me`.)  Of course, this means you can't use any settings from that file.

@@ -221,7 +221,13 @@ To run as a cronjob, remember to escape the `%` character in the command, as thi
 ```
 
 
-If you're using the Docker image, run with:
+If you're using the Docker image, make sure directories to be mounted already exist (or Docker will create them as `root`):
+
+```
+mkdir -p ~/.local/var/dataplane-broker ~/.config/dataplane-broker
+```
+
+Then run with:
 
 ```
 docker run -d --restart unless-stopped --name dpb-server \
@@ -296,4 +302,13 @@ function dpb-client () {
 }
 ```
 
-You will likely need the `config-file` of the SSH options if running through Docker, as SSH will complain about ownership of the default configuration file.  (It's running as `root`, but the file is owned by `me`.)  Of course, this means you can't use any settings from that file.
+Before you run it, make sure the directories it references already exist with the right permissions and ownership:
+
+```
+mkdir -p -m 700 ~/.ssh
+mkdir -p ~/.config/dataplane-broker
+```
+
+
+
+You will likely need the `config-file` of the SSH options if running through Docker and you have a `~/.ssh/config` file, as SSH will complain about ownership of the default configuration file.  (It's running as `root`, but the file is owned by `me`.)  Of course, this means you can't use any settings from that file.
